@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+
+model fairlist {
+  fairlist_id Int @id @default(autoincrement())
+
+  cui          String  @db.VarChar(100)
+  nombres      String  @db.VarChar(150)
+  apellidos    String  @db.VarChar(150)
+  email        String  @unique @db.VarChar(100)
+  date         DateTime
+
+  fairlist_promo_item fairlist_promo[]
+
+  @@map("fairlist")
+}
+
+
+
+
+model promo {
+  id_promo Int @id @default(autoincrement())
+
+  nombre String @db.VarChar(150)
+  precio Decimal @db.Decimal(5, 2)
+
+  id_solution_type Int
+  solution_type    solution_type @relation(fields: [id_solution_type], references: [id_type], onDelete: Cascade, onUpdate: Cascade)
+
+  fairlist_promo fairlist_promo[]
+
+  @@map("promo")
+ 
+}
+
+model solution_type {
+  id_type Int @id @default(autoincrement())
+
+  nombre String @db.VarChar(50)
+  solution_promo  promo[]
+
+  @@map("solution_type")
+}
+
+model fairlist_promo {
+  id Int @id @default(autoincrement())
+
+  id_fairlist Int
+  fairlist_id fairlist  @relation(fields: [id_fairlist], references: [fairlist_id], onDelete: Cascade, onUpdate: Cascade)
+
+  id_promo Int 
+  promo_id promo @relation(fields: [id_promo], references: [id_promo], onDelete: Cascade, onUpdate: Cascade)
+
+  @@map("fairlist_promo")
+}
