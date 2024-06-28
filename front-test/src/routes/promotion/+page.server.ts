@@ -50,7 +50,8 @@ export const actions = {
             method: "post",
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify(dataSend)
         }
@@ -74,7 +75,8 @@ export const actions = {
                     method: "post",
                     headers: {
                       'Accept': 'application/json',
-                      'Content-Type': 'application/json'
+                      'Content-Type': 'application/json',
+                      'Access-Control-Allow-Origin': '*'
                     },
                     body: JSON.stringify(dataList)
                 }
