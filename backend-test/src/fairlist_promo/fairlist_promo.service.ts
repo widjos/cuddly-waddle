@@ -20,6 +20,7 @@ export class FairlistPromoService {
                     }
                 });
             });
+            return { meessage : "Succesful"}
         }
         else
             return new ForbiddenException("La lista esta vacia");

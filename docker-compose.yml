@@ -18,3 +18,15 @@ services:
         - "5432:5432"
       volumes:
         - ./db:/var/lib/postgresql/data
+
+  front-svelte:
+      build:
+        dockerfile: Dockerfile
+        context: ./front-test
+      
+      ports:
+        - "8080:8080"
+
+
+
+
